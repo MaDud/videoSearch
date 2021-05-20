@@ -1,11 +1,12 @@
 import './App.css';
+import {AppProvider} from './appContext';
 import Search from './components/search';
 
 function App() {
   return (
-    <div className="App">
+    <AppProvider>
       <Search />
-    </div>
+    </AppProvider>
   );
 }
 

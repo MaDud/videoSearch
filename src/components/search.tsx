@@ -1,9 +1,12 @@
-import {useState} from 'react';
+import {useState, useContext} from 'react';
+import {AppContext} from '../appContext';
+import {Types} from '../appReducers';
 
 
 const Search = () => {
 
     const [search, setSearch] = useState('rock');
+    const {state, dispatch} = useContext(AppContext);
 
     const searchFor = (e:React.ChangeEvent<HTMLInputElement>) => {
         const searchValue= e.target.value;
@@ -12,7 +15,12 @@ const Search = () => {
 
     const sendSearchRequest = (e:React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        console.log(search)
+        dispatch({
+            type: Types.SearchFor,
+            payload: {
+                searchValue: search
+            }
+        });
     }
 
     return (
