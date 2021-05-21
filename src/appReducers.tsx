@@ -4,7 +4,7 @@ export enum Types {
     SearchFor = 'SEARCH_FOR',
     VideosListInit = 'VIDEOS_LIST_INIT',
     VideosListSuccess = 'VIDEOS_LIST_SUCCESS',
-    VideosListError = 'VIDEOS_LIST_ERROR'
+    SetActiveVideo= 'SET_ACTIVE_VIDEO'
 }
 
 type SearchPayload = {
@@ -15,6 +15,9 @@ type SearchPayload = {
         videosList: {
             [id: string] : VideoI
         }
+    },
+    [Types.SetActiveVideo]: {
+        activeVideo: string
     }
 }
 
@@ -42,6 +45,11 @@ const searchReducer = (state:InitialStateI, action:SearchActions) => {
             return {
                 ...state,
                 videosList: action.payload.videosList
+            }
+        case Types.SetActiveVideo:
+            return {
+                ...state,
+                activeVideo: action.payload.activeVideo
             }
         default:
             return state

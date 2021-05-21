@@ -5,7 +5,8 @@ export interface InitialStateI {
     searchValue: string,
     videosList: {
         [id:string] : VideoI
-    }
+    },
+    activeVideo: string
 }
 
 export interface VideoI {
@@ -15,7 +16,8 @@ export interface VideoI {
 
 const initialState:InitialStateI = {
     searchValue: 'rock',
-    videosList: {}
+    videosList: {},
+    activeVideo: "26nsBfLXwSQ"
 };
 
 const AppContext = React.createContext<{

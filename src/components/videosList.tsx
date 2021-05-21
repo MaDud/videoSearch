@@ -30,6 +30,7 @@ const VideosList = () => {
         fetch(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=10&q=${state.searchValue}&key=${API_KEY}`)
         .then(response => response.ok ? response.json() : console.log('error'))
         .then(response => {
+            console.log(response.items)
             const data:VideoResponseI[] = response.items;
             let videosList:VideosListI = {};
 
