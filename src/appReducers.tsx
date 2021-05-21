@@ -1,17 +1,21 @@
+import {InitialStateI, VideoI} from './appContext'
+
 export enum Types {
     SearchFor = 'SEARCH_FOR',
-    ClickOn = 'CLICK_ON'
-}
-
-interface InitialStateI {
-    searchValue: string
+    VideosListInit = 'VIDEOS_LIST_INIT',
+    VideosListSuccess = 'VIDEOS_LIST_SUCCESS',
+    VideosListError = 'VIDEOS_LIST_ERROR'
 }
 
 type SearchPayload = {
     [Types.SearchFor] : {
-      searchValue: string
+        searchValue: string
     },
-    [Types.ClickOn] : undefined
+    [Types.VideosListSuccess]: {
+        videosList: {
+            [id: string] : VideoI
+        }
+    }
 }
 
 type ActionMap<M extends { [index: string]: any }> = {
@@ -34,6 +38,11 @@ const searchReducer = (state:InitialStateI, action:SearchActions) => {
                 ...state,
                 searchValue: action.payload.searchValue
             };
+        case Types.VideosListSuccess:
+            return {
+                ...state,
+                videosList: action.payload.videosList
+            }
         default:
             return state
     }

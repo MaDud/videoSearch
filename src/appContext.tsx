@@ -1,12 +1,21 @@
 import React from 'react';
 import searchReducer from './appReducers';
 
-interface InitialStateI {
-    searchValue: string
+export interface InitialStateI {
+    searchValue: string,
+    videosList: {
+        [id:string] : VideoI
+    }
+}
+
+export interface VideoI {
+    thumbnail: string,
+    title: string
 }
 
 const initialState:InitialStateI = {
-    searchValue: 'rock'
+    searchValue: 'rock',
+    videosList: {}
 };
 
 const AppContext = React.createContext<{
