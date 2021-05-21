@@ -1,4 +1,4 @@
-import {useContext, useEffect} from 'react';
+import {MouseEventHandler, useContext, useEffect} from 'react';
 import {AppContext} from '../appContext';
 import {Types} from '../appReducers';
 import VideoSnippet from './videoSnippet';
@@ -12,6 +12,9 @@ interface VideosListI {
 
 interface VideoResponseI {
     etag: string,
+    id: {
+        videoId: string,
+    }
     snippet: {
         thumbnails: {
             [id:string]: {
@@ -27,7 +30,7 @@ const VideosList = () => {
     const {state, dispatch} = useContext(AppContext);
 
     useEffect( () => {
-        fetch(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=10&q=${state.searchValue}&key=${API_KEY}`)
+        fetch(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=10&type=video&q=${state.searchValue}&key=${API_KEY}`)
         .then(response => response.ok ? response.json() : console.log('error'))
         .then(response => {
             console.log(response.items)
@@ -35,7 +38,7 @@ const VideosList = () => {
             let videosList:VideosListI = {};
 
             data.forEach(video => {
-                videosList[video.etag] = {
+                videosList[video.id.videoId] = {
                     thumbnail: video.snippet.thumbnails['default'].url,
                     title: video.snippet.title
                 }
@@ -51,11 +54,25 @@ const VideosList = () => {
         .catch(error => console.log('error 2'))
     }, [state.searchValue, dispatch]);
 
-    const list = Object.keys(state.videosList).map(videoId => {
-        return <VideoSnippet key={videoId} 
-            id={videoId} 
-            src={state.videosList[videoId].thumbnail} 
-            title={state.videosList[videoId].title} />
+    const changeActiveVideo = (id:string) => {
+        console.log(id)
+        dispatch( {
+            type: Types.SetActiveVideo,
+            payload: {
+                activeVideo: id
+            }
+        })
+    }
+
+    const list = Object.keys(state.videosList)
+        .filter( videoId => {
+            return videoId !== state.activeVideo})
+        .map(videoId => {
+            return <VideoSnippet key={videoId} 
+                id={videoId} 
+                src={state.videosList[videoId].thumbnail} 
+                title={state.videosList[videoId].title}
+                activateVideo={changeActiveVideo} />
     })
 
     return (

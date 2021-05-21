@@ -7,7 +7,7 @@ const ActiveVideo = () => {
 
     return (
         <article>
-            <iframe width="420" height="315"
+            <iframe width="800" height="600"
                 src={`https://www.youtube.com/embed/${state.activeVideo}`}>
             </iframe>
         </article>
