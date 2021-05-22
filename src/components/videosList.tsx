@@ -1,4 +1,4 @@
-import {MouseEventHandler, useContext, useEffect} from 'react';
+import {useContext, useEffect} from 'react';
 import {AppContext} from '../appContext';
 import {Types} from '../appReducers';
 import VideoSnippet from './videoSnippet';
@@ -15,7 +15,7 @@ interface VideoResponseI {
     id: {
         videoId: string,
     }
-    snippet: {
+    snippet?: {
         thumbnails: {
             [id:string]: {
                 url: string
@@ -33,14 +33,16 @@ const VideosList = () => {
         fetch(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=10&type=video&q=${state.searchValue}&key=${API_KEY}`)
         .then(response => response.ok ? response.json() : console.log('error'))
         .then(response => {
-            console.log(response.items)
             const data:VideoResponseI[] = response.items;
             let videosList:VideosListI = {};
 
             data.forEach(video => {
-                videosList[video.id.videoId] = {
-                    thumbnail: video.snippet.thumbnails['default'].url,
-                    title: video.snippet.title
+
+                if(video.snippet && Object.keys(videosList).length < 10) {
+                    videosList[video.id.videoId] = {
+                        thumbnail: video.snippet.thumbnails['default'].url,
+                        title: video.snippet.title
+                    }
                 }
             })
 
@@ -51,8 +53,36 @@ const VideosList = () => {
                 }
             })
         })
-        .catch(error => console.log('error 2'))
+        .catch(error => console.log(error))
     }, [state.searchValue, dispatch]);
+
+    useEffect( () => {
+        fetch(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=15&type=video&relatedToVideoId=${state.activeVideo}&key=${API_KEY}`)
+        .then(response => response.ok ? response.json() : console.log('error'))
+        .then(response => {
+            console.log('second', response.items)
+            const data:VideoResponseI[] = response.items;
+            let videosList:VideosListI = {};
+
+            data.forEach(video => {
+
+                if(video.snippet && Object.keys(videosList).length < 10) {
+                    videosList[video.id.videoId] = {
+                        thumbnail: video.snippet.thumbnails['default'].url,
+                        title: video.snippet.title
+                    }
+                }
+            })
+
+            dispatch( {
+                type: Types.VideosListSuccess,
+                payload: {
+                    videosList: videosList
+                }
+            })
+        })
+        .catch(error => console.log(error))
+    }, [state.activeVideo, dispatch])
 
     const changeActiveVideo = (id:string) => {
         console.log(id)
