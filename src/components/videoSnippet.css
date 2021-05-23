@@ -1,0 +1,9 @@
+.videoSnippet {
+    margin: 1rem 0.5rem;
+    display: flex;
+}
+
+.videoSnippet__description {
+    margin-left: 1rem;
+    align-self: center;
+}

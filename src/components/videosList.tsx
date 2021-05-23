@@ -3,6 +3,7 @@ import {AppContext} from '../appContext';
 import {Types} from '../appReducers';
 import VideoSnippet from './videoSnippet';
 import {VideoI} from '../appContext';
+import './videosList.css'
 
 const API_KEY = 'AIzaSyAQVzEiUREcjdKY_pbBrCGXHKL6ABzqBGM';
 
@@ -106,8 +107,8 @@ const VideosList = () => {
     })
 
     return (
-        <aside>
-            <h2>Video List</h2>
+        <aside className='videosList'>
+            <h2 className='videosList__title'>Video List</h2>
             {list}
         </aside>
     )

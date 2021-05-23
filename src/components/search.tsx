@@ -1,6 +1,7 @@
 import {useState, useContext} from 'react';
 import {AppContext} from '../appContext';
 import {Types} from '../appReducers';
+import './search.css';
 
 
 const Search = () => {
@@ -24,9 +25,9 @@ const Search = () => {
     }
 
     return (
-        <form>
-            <input type='text' value={search} onChange={searchFor}/>
-            <button type='submit' onClick={sendSearchRequest}>search</button>
+        <form className='form'>
+            <input type='text' value={search} onChange={searchFor} className='form__input'/>
+            <button type='submit' onClick={sendSearchRequest} className='form__submit'>search</button>
         </form>
     )
 };
