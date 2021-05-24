@@ -1,9 +1,17 @@
 .videosList {
     margin: 0;
-    padding-top: 22rem
+    padding-top: 23rem
 }
 
 .videosList__title {
     margin: 0.5rem;
     font-size: 1rem;
+}
+
+@media (min-width: 1000px) {
+    .videosList {
+        float: right;
+        padding-top: 1.5rem;
+        width: 30%;
+    }
 }

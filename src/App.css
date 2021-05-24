@@ -23,3 +23,9 @@
   margin: 0
 }
 
+@media (min-width: 1000px) {
+  .app__header {
+    position: static;
+  }
+}
+
