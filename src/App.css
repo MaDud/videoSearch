@@ -5,6 +5,7 @@
   width: 100%;
   box-sizing: border-box;
   z-index: 2;
+  border-bottom: 2px dashed rgb(237, 231, 227);
 }
 
 .app__header::after {
@@ -31,7 +32,7 @@
   }
 
   .app__title {
-    font-size: 1.5rem;
+    font-size: 2rem;
   }
 }
 

@@ -8,7 +8,7 @@ const ActiveVideo = () => {
 
     return (
         <article className='videoBox'>
-            <legend className='videoBox__legend'>Now you watch:</legend>
+            <legend className='videoBox__legend'>Now you are watching:</legend>
             <iframe src={`https://www.youtube.com/embed/${state.activeVideo}`} className='videoBox__video'>
             </iframe>
         </article>

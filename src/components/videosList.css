@@ -1,17 +1,25 @@
 .videosList {
     margin: 0;
-    padding-top: 23rem
+    padding-top: 24rem
 }
 
 .videosList__title {
-    margin: 0.5rem;
+    margin: 1rem 0.5rem;
+    text-transform: uppercase;
+    color: rgb(130, 192, 204);
     font-size: 1rem;
+    font-weight: normal;
 }
 
 @media (min-width: 1000px) {
     .videosList {
         float: right;
-        padding-top: 1.5rem;
-        width: 30%;
+        padding: 0 10% 0 0;
+        width: 35%;
+        box-sizing: border-box;
+    }
+
+    .videosList__title {
+        margin: 2.5rem 0;
     }
 }

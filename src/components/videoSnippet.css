@@ -1,9 +1,15 @@
 .videoSnippet {
     margin: 1rem 0.5rem;
     display: flex;
+    width: 100%;
 }
 
 .videoSnippet__description {
-    margin-left: 1rem;
-    align-self: center;
+    padding-left: 1rem;
+    background-color: rgba(255, 167, 43, 0.164);
+    height: 90px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    border-radius: 0 10px 10px 0
 }
